@@ -1,6 +1,5 @@
 import Foundation
 import FunctionalSwift
-import FunctionalForm
 
 private typealias ResponsePromise = Promise<WSResponse,NSError>
 private var _wsClientSharedInstance = WSClient()
