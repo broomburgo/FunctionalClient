@@ -6,37 +6,15 @@ public let objectKey = "FunctionalJSON.object"
 
 public enum JSONParsingError: Int {
     case Undefined          = 0
-    case ToJSONObject       = 1
-    case ToInt              = 2
-    case ToFloat            = 3
-    case ToBool             = 4
-    case ToString           = 5
-    case ToDictionary       = 6
-    case ToArrayString      = 7
-    case ToArrayDictionary  = 8
-}
-
-public func toJSONParsingError (code: Int) -> JSONParsingError {
-    switch code {
-    case 1:
-        return .ToJSONObject
-    case 2:
-        return .ToInt
-    case 3:
-        return .ToFloat
-    case 4:
-        return .ToBool
-    case 5:
-        return .ToString
-    case 6:
-        return .ToDictionary
-    case 7:
-        return .ToArrayString
-    case 8:
-        return .ToArrayDictionary
-    default:
-        return .Undefined
-    }
+    case ToJSONObject
+    case ToInt
+    case ToFloat
+    case ToDouble
+    case ToBool
+    case ToString
+    case ToDictionary
+    case ToArrayString
+    case ToArrayDictionary
 }
 
 public func toJSONObject (data: NSData) -> Result<AnyObject,NSError> {
@@ -64,6 +42,15 @@ public func toFloat (object: AnyObject) -> Result<Float,NSError> {
     }
     else {
         return failure § parsingError(.ToFloat, object)
+    }
+}
+
+public func toDouble (object: AnyObject) -> Result<Double,NSError> {
+    if let asDouble = object as? Double {
+        return success(asDouble)
+    }
+    else {
+        return failure § parsingError(.ToDouble, object)
     }
 }
 
@@ -119,11 +106,7 @@ private func codeOfError (error: JSONParsingError) -> Int {
 }
 
 private func parsingError(error: JSONParsingError, object: AnyObject) -> NSError {
-    return NSError(domain: JSONParsingDomain, code: codeOfError(error), userInfo: [NSLocalizedDescriptionKey : cantParse(object), objectKey : object])
-}
-
-private func cantParse (object: AnyObject) -> String {
-    return "Can't parse object: \(object)"
+    return NSError(domain: JSONParsingDomain, code: codeOfError(error), userInfo: [NSLocalizedDescriptionKey : "Error code '\(error.rawValue)': can't parse object '\(object)'", objectKey : object])
 }
 
 
