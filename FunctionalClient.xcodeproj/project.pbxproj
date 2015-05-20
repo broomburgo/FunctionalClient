@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		38FFA3151B0C6B3D00DE0FCA /* FunctionalClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 38FFA3141B0C6B3D00DE0FCA /* FunctionalClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		38FFA31B1B0C6B3D00DE0FCA /* FunctionalClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38FFA30F1B0C6B3D00DE0FCA /* FunctionalClient.framework */; };
 		38FFA3221B0C6B3D00DE0FCA /* FunctionalClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA3211B0C6B3D00DE0FCA /* FunctionalClientTests.swift */; };
+		38FFA32C1B0C6B6700DE0FCA /* WSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA32B1B0C6B6700DE0FCA /* WSClient.swift */; };
+		38FFA32E1B0C6C2800DE0FCA /* FunctionalSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38FFA32D1B0C6C2800DE0FCA /* FunctionalSwift.framework */; };
+		38FFA3311B0C6C6200DE0FCA /* WSValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA3301B0C6C6200DE0FCA /* WSValue.swift */; };
+		38FFA3331B0C6D6600DE0FCA /* FunctionalJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA3321B0C6D6600DE0FCA /* FunctionalJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,10 +28,13 @@
 /* Begin PBXFileReference section */
 		38FFA30F1B0C6B3D00DE0FCA /* FunctionalClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FunctionalClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38FFA3131B0C6B3D00DE0FCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		38FFA3141B0C6B3D00DE0FCA /* FunctionalClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionalClient.h; sourceTree = "<group>"; };
 		38FFA31A1B0C6B3D00DE0FCA /* FunctionalClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunctionalClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38FFA3201B0C6B3D00DE0FCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38FFA3211B0C6B3D00DE0FCA /* FunctionalClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionalClientTests.swift; sourceTree = "<group>"; };
+		38FFA32B1B0C6B6700DE0FCA /* WSClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSClient.swift; sourceTree = "<group>"; };
+		38FFA32D1B0C6C2800DE0FCA /* FunctionalSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunctionalSwift.framework; path = "../../../../Library/Developer/Xcode/DerivedData/libraries-bbugebbxwvwmdcftipdzethlotef/Build/Products/Debug-iphoneos/FunctionalSwift.framework"; sourceTree = "<group>"; };
+		38FFA3301B0C6C6200DE0FCA /* WSValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSValue.swift; sourceTree = "<group>"; };
+		38FFA3321B0C6D6600DE0FCA /* FunctionalJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38FFA32E1B0C6C2800DE0FCA /* FunctionalSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,6 +62,7 @@
 			children = (
 				38FFA3111B0C6B3D00DE0FCA /* FunctionalClient */,
 				38FFA31E1B0C6B3D00DE0FCA /* FunctionalClientTests */,
+				38FFA32F1B0C6C2D00DE0FCA /* Libraries */,
 				38FFA3101B0C6B3D00DE0FCA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -71,7 +79,9 @@
 		38FFA3111B0C6B3D00DE0FCA /* FunctionalClient */ = {
 			isa = PBXGroup;
 			children = (
-				38FFA3141B0C6B3D00DE0FCA /* FunctionalClient.h */,
+				38FFA32B1B0C6B6700DE0FCA /* WSClient.swift */,
+				38FFA3301B0C6C6200DE0FCA /* WSValue.swift */,
+				38FFA3321B0C6D6600DE0FCA /* FunctionalJSON.swift */,
 				38FFA3121B0C6B3D00DE0FCA /* Supporting Files */,
 			);
 			path = FunctionalClient;
@@ -102,6 +112,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		38FFA32F1B0C6C2D00DE0FCA /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				38FFA32D1B0C6C2800DE0FCA /* FunctionalSwift.framework */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -109,7 +127,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38FFA3151B0C6B3D00DE0FCA /* FunctionalClient.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +226,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38FFA32C1B0C6B6700DE0FCA /* WSClient.swift in Sources */,
+				38FFA3331B0C6D6600DE0FCA /* FunctionalJSON.swift in Sources */,
+				38FFA3311B0C6C6200DE0FCA /* WSValue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,25 +343,36 @@
 		38FFA3261B0C6B3D00DE0FCA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/libraries-bbugebbxwvwmdcftipdzethlotef/Build/Products/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = FunctionalClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		38FFA3271B0C6B3D00DE0FCA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/libraries-bbugebbxwvwmdcftipdzethlotef/Build/Products/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = FunctionalClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
