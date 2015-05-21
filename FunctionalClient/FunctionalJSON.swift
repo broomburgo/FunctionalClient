@@ -15,6 +15,7 @@ public enum JSONParsingError: Int {
     case ToDictionary
     case ToArrayString
     case ToArrayDictionary
+    case ToDate
 }
 
 public func toJSONObject (data: NSData) -> Result<AnyObject,NSError> {
@@ -99,6 +100,15 @@ public func toArrayDictionary (object: AnyObject) -> Result<[[String:AnyObject]]
     }
 }
 
+public func toDate (formatter: NSDateFormatter)(object: AnyObject) -> Result<NSDate,NSError> {
+    if let dateString = object as? String, date = formatter.dateFromString(dateString) {
+        return success(date)
+    }
+    else {
+        return failure § parsingError(.ToDate, object)
+    }
+}
+
 /// MARK: - utilities
 
 private func codeOfError (error: JSONParsingError) -> Int {
@@ -106,7 +116,11 @@ private func codeOfError (error: JSONParsingError) -> Int {
 }
 
 private func parsingError(error: JSONParsingError, object: AnyObject) -> NSError {
-    return NSError(domain: JSONParsingDomain, code: codeOfError(error), userInfo: [NSLocalizedDescriptionKey : "Error code '\(error.rawValue)': can't parse object '\(object)'", objectKey : object])
+    return NSError(domain: JSONParsingDomain, code: codeOfError(error), userInfo: [NSLocalizedDescriptionKey : "Error '\(error)': can't parse object '\(object)'", objectKey : object])
+}
+
+private func dateParsingError(object: AnyObject, format: String) -> NSError {
+    return NSError(domain: JSONParsingDomain, code: codeOfError(.ToDate), userInfo: [NSLocalizedDescriptionKey : "Error '\(JSONParsingError.ToDate)': can't parse object '\(object)' with format '\(format)'", objectKey : object])
 }
 
 
