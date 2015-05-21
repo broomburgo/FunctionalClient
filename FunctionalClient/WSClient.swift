@@ -67,7 +67,25 @@ extension WSClient {
     }
 }
 
-/// MARK: - utility
+/// MARK: - generic process procedure
+
+public func processResponse <T> (response: WSResponse, #processData: NSData -> Result<T,NSError>) -> Future<T,NSError> {
+    let promise = Promise<T,NSError>()
+    promise.complete § processData(response.data)
+    return promise.future
+}
+
+/// MARK: - extract from dictionary
+
+public func extractWithError (key: String)(dictionary: [String:AnyObject]) -> Result<AnyObject,NSError> {
+    return dictionary |> extract(key, errorCantFindValueForKey)
+}
+
+public func extractWithError (key: String)(object: AnyObject) -> Result<AnyObject,NSError> {
+    return object |> extract(key, errorObjectIsNotDictionary, errorCantFindValueForKey)
+}
+
+/// MARK: - private utility
 
 private func verifyRequestError (optionalURLResponse: NSURLResponse?, optionalError: NSError?, makeError: (NSError, NSURLResponse?) -> NSError)(promise: ResponsePromise) -> ResponsePromise? {
     if let error = optionalError {
@@ -99,12 +117,13 @@ private func publishResponseIfPossible (optionalData: NSData?, optionalURLRespon
     }
 }
 
-/// MARK: - generic process procedure
-
-public func processResponse <T> (response: WSResponse, #processData: NSData -> Result<T,NSError>) -> Future<T,NSError> {
-    let promise = Promise<T,NSError>()
-    promise.complete § processData(response.data)
-    return promise.future
+private func errorCantFindValueForKey (key: String, dictionary: [String:AnyObject]) -> NSError {
+    return NSError(domain: "Parse", code: 1, userInfo: [NSLocalizedDescriptionKey:"Can't find value for key '\(key)' in dictionary '\(dictionary)'"])
 }
+
+private func errorObjectIsNotDictionary (key: String, object: AnyObject) -> NSError {
+    return NSError(domain: "Parse", code: 2, userInfo: [NSLocalizedDescriptionKey:"Object for key '\(key)' is not of type [String:AnyObject]: '\(object)"])
+}
+
 
 

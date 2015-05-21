@@ -109,7 +109,7 @@ public func toDate (formatter: NSDateFormatter)(object: AnyObject) -> Result<NSD
     }
 }
 
-/// MARK: - utilities
+/// MARK: - private utilities
 
 private func codeOfError (error: JSONParsingError) -> Int {
     return error.rawValue
