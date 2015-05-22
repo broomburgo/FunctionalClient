@@ -1,11 +1,11 @@
 import Foundation
 import FunctionalSwift
 
-public let JSONParsingDomain = "FunctionalJSON.parsing"
-public let objectKey = "FunctionalJSON.object"
+public let JSONParsingDomain = "FunctionalJSON.JSONParsingDomain"
+public let objectKey = "FunctionalJSON.objectKey"
 
 public enum JSONParsingError: Int {
-    case Undefined          = 0
+    case Undefined = 0
     case ToJSONObject
     case ToInt
     case ToFloat
@@ -105,7 +105,7 @@ public func toDate (formatter: NSDateFormatter)(object: AnyObject) -> Result<NSD
         return success(date)
     }
     else {
-        return failure § parsingError(.ToDate, object)
+        return failure § dateParsingError(formatter.dateFormat, object)
     }
 }
 
@@ -119,7 +119,7 @@ private func parsingError(error: JSONParsingError, object: AnyObject) -> NSError
     return NSError(domain: JSONParsingDomain, code: codeOfError(error), userInfo: [NSLocalizedDescriptionKey : "Error '\(error)': can't parse object '\(object)'", objectKey : object])
 }
 
-private func dateParsingError(object: AnyObject, format: String) -> NSError {
+private func dateParsingError(format: String, object: AnyObject) -> NSError {
     return NSError(domain: JSONParsingDomain, code: codeOfError(.ToDate), userInfo: [NSLocalizedDescriptionKey : "Error '\(JSONParsingError.ToDate)': can't parse object '\(object)' with format '\(format)'", objectKey : object])
 }
 
