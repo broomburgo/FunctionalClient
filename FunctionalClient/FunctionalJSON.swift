@@ -24,7 +24,16 @@ public func toJSONObject (data: NSData) -> Result<AnyObject,NSError> {
         return success(JSONObject)
     }
     else {
-        return failure § NSError(domain: JSONParsingDomain, code: codeOfError(.ToJSONObject), userInfo: inOutError?.userInfo)
+        
+        let errorString: String = NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+            >>> { dataString in inOutError?.userInfo?[NSLocalizedDescriptionKey] as? String
+                >>> { errorDescription in errorDescription + " " + dataString }
+                ?? dataString }
+            ?? ""
+        
+        let userInfo = errorString.isEmpty ? inOutError?.userInfo : [NSLocalizedDescriptionKey:errorString]
+        
+        return failure § NSError(domain: JSONParsingDomain, code: codeOfError(.ToJSONObject), userInfo: userInfo)
     }
 }
 
