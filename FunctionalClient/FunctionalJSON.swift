@@ -1,5 +1,6 @@
 import Foundation
-import FunctionalSwift
+import Result
+import Elements
 
 public let JSONParsingDomain = "FunctionalJSON.JSONParsingDomain"
 public let objectKey = "FunctionalJSON.objectKey"
@@ -21,100 +22,99 @@ public enum JSONParsingError: Int {
 public func toJSONObject (data: NSData) -> Result<AnyObject,NSError> {
     var inOutError: NSError? = nil
     if let JSONObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error:&inOutError) {
-        return success(JSONObject)
+        return Result.success(JSONObject)
     }
     else {
         
-        let errorString: String = NSString(data: data, encoding: NSUTF8StringEncoding) as? String
+        let errorString = NSString(data: data, encoding: NSUTF8StringEncoding) as? String
             >>> { dataString in inOutError?.userInfo?[NSLocalizedDescriptionKey] as? String
-                >>> { errorDescription in errorDescription + " " + dataString }
-                ?? dataString }
-            ?? ""
+                >>> { errorDescription in errorDescription + " " + dataString } |> defaultTo(dataString) }
+            |> defaultTo("")
         
         let userInfo = errorString.isEmpty ? inOutError?.userInfo : [NSLocalizedDescriptionKey:errorString]
         
-        return failure § NSError(domain: JSONParsingDomain, code: codeOfError(.ToJSONObject), userInfo: userInfo)
+        return Result.failure § NSError(domain: JSONParsingDomain, code: codeOfError(.ToJSONObject), userInfo: userInfo)
     }
 }
 
 public func toInt (object: AnyObject) -> Result<Int,NSError> {
     if let asInt = object as? Int {
-        return success(asInt)
+        return Result.success § asInt
     }
     else {
-        return failure § parsingError(.ToInt, object)
+        return Result.failure § parsingError(.ToInt, object)
     }
 }
 
 public func toFloat (object: AnyObject) -> Result<Float,NSError> {
     if let asFloat = object as? Float {
-        return success(asFloat)
+        return Result.success § asFloat
     }
     else {
-        return failure § parsingError(.ToFloat, object)
+        return Result.failure § parsingError(.ToFloat, object)
     }
 }
 
 public func toDouble (object: AnyObject) -> Result<Double,NSError> {
     if let asDouble = object as? Double {
-        return success(asDouble)
+        return Result.success § asDouble
     }
     else {
-        return failure § parsingError(.ToDouble, object)
+        return Result.failure § parsingError(.ToDouble, object)
     }
 }
 
 public func toBool (object: AnyObject) -> Result<Bool,NSError> {
     if let asBool = object as? Bool {
-        return success(asBool)
+        return Result.success § asBool
     }
     else {
-        return failure § parsingError(.ToBool, object)
+        return Result.failure § parsingError(.ToBool, object)
     }
 }
 
 public func toString (object: AnyObject) -> Result<String,NSError> {
     if let asString = object as? String {
-        return success(asString)
+        return Result.success § asString
     }
     else {
-        return failure § parsingError(.ToString, object)
+        return Result.failure § parsingError(.ToString, object)
     }
 }
 
 public func toDictionary (object: AnyObject) -> Result<[String:AnyObject],NSError> {
     if let asDictionary = object as? [String:AnyObject] {
-        return success(asDictionary)
+        return Result.success § asDictionary
     }
     else {
-        return failure § parsingError(.ToDictionary, object)
+        return Result.failure § parsingError(.ToDictionary, object)
     }
 }
 
 public func toArrayString (object: AnyObject) -> Result<[String],NSError> {
     if let asArrayString = object as? [String] {
-        return success(asArrayString)
+        return Result.success § asArrayString
     }
     else {
-        return failure § parsingError(.ToArrayString, object)
+        return Result.failure § parsingError(.ToArrayString, object)
     }
 }
 
 public func toArrayDictionary (object: AnyObject) -> Result<[[String:AnyObject]],NSError> {
     if let asArrayDictionary = object as? [[String:AnyObject]] {
-        return success(asArrayDictionary)
+        return Result.success § asArrayDictionary
     }
     else {
-        return failure § parsingError(.ToArrayDictionary, object)
+        return Result.failure § parsingError(.ToArrayDictionary, object)
     }
 }
 
 public func toDate (formatter: NSDateFormatter)(object: AnyObject) -> Result<NSDate,NSError> {
     if let dateString = object as? String, date = formatter.dateFromString(dateString) {
-        return success(date)
+        return Result.success § date
     }
     else {
-        return failure § dateParsingError(formatter.dateFormat, object)
+        return Result.failure § dateParsingError(formatter.dateFormat, object)
     }
 }
 

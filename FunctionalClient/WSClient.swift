@@ -1,5 +1,8 @@
 import Foundation
-import FunctionalSwift
+import Future
+import Result
+import Queue
+import Elements
 
 private typealias ResponsePromise = Promise<WSResponse,NSError>
 private var _wsClientSharedInstance = WSClient()
@@ -89,7 +92,7 @@ public func extractWithError (key: String)(object: AnyObject) -> Result<AnyObjec
 
 private func verifyRequestError (optionalURLResponse: NSURLResponse?, optionalError: NSError?, makeError: (NSError, NSURLResponse?) -> NSError)(promise: ResponsePromise) -> ResponsePromise? {
     if let error = optionalError {
-        promise.complete § failure § makeError(error, optionalURLResponse)
+        promise.complete § Result.failure § makeError(error, optionalURLResponse)
         return nil
     }
     else {
@@ -99,7 +102,7 @@ private func verifyRequestError (optionalURLResponse: NSURLResponse?, optionalEr
 
 private func verifyEmptyDataError (optionalData: NSData?, optionalURLResponse: NSURLResponse?, optionalError: NSError?, makeError: (NSError, NSURLResponse?) -> NSError)(promise: ResponsePromise) -> ResponsePromise? {
     if optionalData == nil && optionalError == nil {
-        promise.complete § failure § makeError(emptyDataError,optionalURLResponse)
+        promise.complete § Result.failure § makeError(emptyDataError,optionalURLResponse)
         return nil
     }
     else {
@@ -109,7 +112,7 @@ private func verifyEmptyDataError (optionalData: NSData?, optionalURLResponse: N
 
 private func publishResponseIfPossible (optionalData: NSData?, optionalURLResponse: NSURLResponse?, optionalError: NSError?)(promise: ResponsePromise) -> ResponsePromise? {
     if let data = optionalData where optionalError == nil {
-        promise.complete § success § WSResponse(data: data, optionalURLResponse: optionalURLResponse)
+        promise.complete § Result.success § WSResponse(data: data, optionalURLResponse: optionalURLResponse)
         return nil
     }
     else {

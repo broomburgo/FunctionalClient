@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		380900CA1B31B13700947E60 /* Future.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900C81B31B13700947E60 /* Future.framework */; };
+		380900CB1B31B13700947E60 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900C91B31B13700947E60 /* Result.framework */; };
+		380900CD1B31B16700947E60 /* Queue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900CC1B31B16700947E60 /* Queue.framework */; };
+		380900CF1B31B17B00947E60 /* Elements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900CE1B31B17B00947E60 /* Elements.framework */; };
 		38FFA31B1B0C6B3D00DE0FCA /* FunctionalClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38FFA30F1B0C6B3D00DE0FCA /* FunctionalClient.framework */; };
 		38FFA3221B0C6B3D00DE0FCA /* FunctionalClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA3211B0C6B3D00DE0FCA /* FunctionalClientTests.swift */; };
 		38FFA32C1B0C6B6700DE0FCA /* WSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA32B1B0C6B6700DE0FCA /* WSClient.swift */; };
-		38FFA32E1B0C6C2800DE0FCA /* FunctionalSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38FFA32D1B0C6C2800DE0FCA /* FunctionalSwift.framework */; };
 		38FFA3311B0C6C6200DE0FCA /* WSValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA3301B0C6C6200DE0FCA /* WSValue.swift */; };
 		38FFA3331B0C6D6600DE0FCA /* FunctionalJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA3321B0C6D6600DE0FCA /* FunctionalJSON.swift */; };
 /* End PBXBuildFile section */
@@ -26,13 +29,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		380900C81B31B13700947E60 /* Future.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Future.framework; path = "../../../../Library/Developer/Xcode/DerivedData/libraries-bbugebbxwvwmdcftipdzethlotef/Build/Products/Debug-iphoneos/Future.framework"; sourceTree = "<group>"; };
+		380900C91B31B13700947E60 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = "../../../../Library/Developer/Xcode/DerivedData/libraries-bbugebbxwvwmdcftipdzethlotef/Build/Products/Debug-iphoneos/Result.framework"; sourceTree = "<group>"; };
+		380900CC1B31B16700947E60 /* Queue.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Queue.framework; path = "../../../../Library/Developer/Xcode/DerivedData/libraries-bbugebbxwvwmdcftipdzethlotef/Build/Products/Debug-iphoneos/Queue.framework"; sourceTree = "<group>"; };
+		380900CE1B31B17B00947E60 /* Elements.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Elements.framework; path = "../../../../Library/Developer/Xcode/DerivedData/libraries-bbugebbxwvwmdcftipdzethlotef/Build/Products/Debug-iphoneos/Elements.framework"; sourceTree = "<group>"; };
 		38FFA30F1B0C6B3D00DE0FCA /* FunctionalClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FunctionalClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38FFA3131B0C6B3D00DE0FCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38FFA31A1B0C6B3D00DE0FCA /* FunctionalClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunctionalClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		38FFA3201B0C6B3D00DE0FCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38FFA3211B0C6B3D00DE0FCA /* FunctionalClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionalClientTests.swift; sourceTree = "<group>"; };
 		38FFA32B1B0C6B6700DE0FCA /* WSClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSClient.swift; sourceTree = "<group>"; };
-		38FFA32D1B0C6C2800DE0FCA /* FunctionalSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunctionalSwift.framework; path = "../../../../Library/Developer/Xcode/DerivedData/libraries-bbugebbxwvwmdcftipdzethlotef/Build/Products/Debug-iphoneos/FunctionalSwift.framework"; sourceTree = "<group>"; };
 		38FFA3301B0C6C6200DE0FCA /* WSValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSValue.swift; sourceTree = "<group>"; };
 		38FFA3321B0C6D6600DE0FCA /* FunctionalJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -42,7 +48,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38FFA32E1B0C6C2800DE0FCA /* FunctionalSwift.framework in Frameworks */,
+				380900CF1B31B17B00947E60 /* Elements.framework in Frameworks */,
+				380900CD1B31B16700947E60 /* Queue.framework in Frameworks */,
+				380900CA1B31B13700947E60 /* Future.framework in Frameworks */,
+				380900CB1B31B13700947E60 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +71,7 @@
 			children = (
 				38FFA3111B0C6B3D00DE0FCA /* FunctionalClient */,
 				38FFA31E1B0C6B3D00DE0FCA /* FunctionalClientTests */,
-				38FFA32F1B0C6C2D00DE0FCA /* Libraries */,
+				38FFA32F1B0C6C2D00DE0FCA /* Dependencies */,
 				38FFA3101B0C6B3D00DE0FCA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,12 +121,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		38FFA32F1B0C6C2D00DE0FCA /* Libraries */ = {
+		38FFA32F1B0C6C2D00DE0FCA /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				38FFA32D1B0C6C2800DE0FCA /* FunctionalSwift.framework */,
+				380900CE1B31B17B00947E60 /* Elements.framework */,
+				380900CC1B31B16700947E60 /* Queue.framework */,
+				380900C81B31B13700947E60 /* Future.framework */,
+				380900C91B31B13700947E60 /* Result.framework */,
 			);
-			name = Libraries;
+			name = Dependencies;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -430,6 +442,7 @@
 				38FFA3271B0C6B3D00DE0FCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		38FFA3281B0C6B3D00DE0FCA /* Build configuration list for PBXNativeTarget "FunctionalClientTests" */ = {
 			isa = XCConfigurationList;
@@ -438,6 +451,7 @@
 				38FFA32A1B0C6B3D00DE0FCA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
