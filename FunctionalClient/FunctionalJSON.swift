@@ -4,6 +4,7 @@ import Elements
 
 public let JSONParsingDomain = "FunctionalJSON.JSONParsingDomain"
 public let objectKey = "FunctionalJSON.objectKey"
+public let DictionaryExtractDomain = "FunctionalJSON.DictionaryExtractDomain"
 
 public enum JSONParsingError: Int {
     case Undefined = 0
@@ -25,14 +26,12 @@ public func toJSONObject (data: NSData) -> Result<AnyObject,NSError> {
         return Result.success(JSONObject)
     }
     else {
-        
         let errorString = NSString(data: data, encoding: NSUTF8StringEncoding) as? String
             >>> { dataString in inOutError?.userInfo?[NSLocalizedDescriptionKey] as? String
-                >>> { errorDescription in errorDescription + " " + dataString } |> defaultTo(dataString) }
+                >>> { errorDescription in errorDescription + " " + dataString }
+                |> defaultTo(dataString) }
             |> defaultTo("")
-        
         let userInfo = errorString.isEmpty ? inOutError?.userInfo : [NSLocalizedDescriptionKey:errorString]
-        
         return Result.failure § NSError(domain: JSONParsingDomain, code: codeOfError(.ToJSONObject), userInfo: userInfo)
     }
 }
@@ -118,6 +117,16 @@ public func toDate (formatter: NSDateFormatter)(object: AnyObject) -> Result<NSD
     }
 }
 
+///MARK: - extract from dictionary
+
+public func extractWithError (key: String)(dictionary: [String:AnyObject]) -> Result<AnyObject,NSError> {
+    return dictionary |> extract(key, cantFindValueForKeyError)
+}
+
+public func extractWithError (key: String)(object: AnyObject) -> Result<AnyObject,NSError> {
+    return object |> extract(key, objectIsNotDictionaryError, cantFindValueForKeyError)
+}
+
 ///MARK: - private utilities
 
 private func codeOfError (error: JSONParsingError) -> Int {
@@ -132,8 +141,12 @@ private func dateParsingError(format: String, object: AnyObject) -> NSError {
     return NSError(domain: JSONParsingDomain, code: codeOfError(.ToDate), userInfo: [NSLocalizedDescriptionKey : "Error '\(JSONParsingError.ToDate)': can't parse object '\(object)' with format '\(format)'", objectKey : object])
 }
 
+private func cantFindValueForKeyError (key: String, dictionary: [String:AnyObject]) -> NSError {
+    return NSError(domain: DictionaryExtractDomain, code: 1, userInfo: [NSLocalizedDescriptionKey:"Can't find value for key '\(key)' in dictionary '\(dictionary)'"])
+}
 
-
-
+private func objectIsNotDictionaryError (key: String, object: AnyObject) -> NSError {
+    return NSError(domain: DictionaryExtractDomain, code: 2, userInfo: [NSLocalizedDescriptionKey:"Object for key '\(key)' is not of type [String:AnyObject]: '\(object)"])
+}
 
 

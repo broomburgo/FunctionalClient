@@ -5,7 +5,6 @@ import Queue
 import Elements
 
 private typealias ResponsePromise = Promise<WSResponse,NSError>
-private var _wsClientSharedInstance = WSClient()
 private let emptyDataError = NSError(domain: "WSClient", code: 0, userInfo: [NSLocalizedDescriptionKey : "received empty data"])
 
 public typealias UniqueIndex = Int
@@ -20,26 +19,22 @@ public struct WSResponse {
         self.data = data
         self.optionalURLResponse = optionalURLResponse
     }
+    
+    public func process <T> (processData: NSData -> Result<T,NSError>) -> Future<T,NSError> {
+        let promise = Promise<T,NSError>()
+        promise.complete § processData(data)
+        return promise.future
+    }
 }
 
 public class WSClient {
-    
-    public class var sharedInstance: WSClient {
-        return _wsClientSharedInstance
-    }
-    
+    public static let sharedInstance = WSClient()
     private var promises = [Int:ResponsePromise]()
     private var incrementalIndex: UniqueIndex = 0
-}
 
-extension WSClient {
-    
     public func requestData (request: NSURLRequest, makeError: (NSError, NSURLResponse?) -> NSError) -> Future<WSResponse,NSError> {
-        
         let promise = ResponsePromise()
-        
-        let currentIndex = self.addPromise(promise)
-        
+        let currentIndex = addPromise(promise)
         NSURLSession.sharedSession().dataTaskWithRequest(request) { data, URLResponse, error in
             Queue.main.async {
                 self.removePromise(currentIndex)
@@ -49,83 +44,57 @@ extension WSClient {
                 
             }
         } .resume()
-        
         return promise.future
     }
-}
-
-extension WSClient {
     
     private func addPromise (promise: ResponsePromise) -> UniqueIndex {
-        
-        let currentIndex = self.incrementalIndex
-        self.promises[currentIndex] = promise
-        self.incrementalIndex += 1
-        
+        let currentIndex = incrementalIndex
+        promises[currentIndex] = promise
+        incrementalIndex += 1
         return currentIndex
     }
     
     private func removePromise (index: UniqueIndex) -> ResponsePromise? {
-        return self.promises.removeValueForKey(index)
+        return promises.removeValueForKey(index)
     }
-}
-
-///MARK: - generic process procedure
-
-public func processResponse <T> (response: WSResponse, #processData: NSData -> Result<T,NSError>) -> Future<T,NSError> {
-    let promise = Promise<T,NSError>()
-    promise.complete § processData(response.data)
-    return promise.future
-}
-
-///MARK: - extract from dictionary
-
-public func extractWithError (key: String)(dictionary: [String:AnyObject]) -> Result<AnyObject,NSError> {
-    return dictionary |> extract(key, errorCantFindValueForKey)
-}
-
-public func extractWithError (key: String)(object: AnyObject) -> Result<AnyObject,NSError> {
-    return object |> extract(key, errorObjectIsNotDictionary, errorCantFindValueForKey)
 }
 
 ///MARK: - private utility
 
-private func verifyRequestError (optionalURLResponse: NSURLResponse?, optionalError: NSError?, makeError: (NSError, NSURLResponse?) -> NSError)(promise: ResponsePromise) -> ResponsePromise? {
-    if let error = optionalError {
-        promise.complete § Result.failure § makeError(error, optionalURLResponse)
-        return nil
-    }
-    else {
-        return promise
-    }
-}
-
-private func verifyEmptyDataError (optionalData: NSData?, optionalURLResponse: NSURLResponse?, optionalError: NSError?, makeError: (NSError, NSURLResponse?) -> NSError)(promise: ResponsePromise) -> ResponsePromise? {
-    if optionalData == nil && optionalError == nil {
-        promise.complete § Result.failure § makeError(emptyDataError,optionalURLResponse)
-        return nil
-    }
-    else {
-        return promise
+private func verifyRequestError (optionalURLResponse: NSURLResponse?, optionalError: NSError?, makeError: (NSError, NSURLResponse?) -> NSError) -> ResponsePromise -> ResponsePromise? {
+    return { promise in
+        if let error = optionalError {
+            promise.complete § Result.failure § makeError(error, optionalURLResponse)
+            return nil
+        }
+        else {
+            return promise
+        }
     }
 }
 
-private func publishResponseIfPossible (optionalData: NSData?, optionalURLResponse: NSURLResponse?, optionalError: NSError?)(promise: ResponsePromise) -> ResponsePromise? {
-    if let data = optionalData where optionalError == nil {
-        promise.complete § Result.success § WSResponse(data: data, optionalURLResponse: optionalURLResponse)
-        return nil
-    }
-    else {
-        return promise
+private func verifyEmptyDataError (optionalData: NSData?, optionalURLResponse: NSURLResponse?, optionalError: NSError?, makeError: (NSError, NSURLResponse?) -> NSError) -> ResponsePromise -> ResponsePromise? {
+    return { promise in
+        if optionalData == nil && optionalError == nil {
+            promise.complete § Result.failure § makeError(emptyDataError,optionalURLResponse)
+            return nil
+        }
+        else {
+            return promise
+        }
     }
 }
 
-private func errorCantFindValueForKey (key: String, dictionary: [String:AnyObject]) -> NSError {
-    return NSError(domain: "Parse", code: 1, userInfo: [NSLocalizedDescriptionKey:"Can't find value for key '\(key)' in dictionary '\(dictionary)'"])
-}
-
-private func errorObjectIsNotDictionary (key: String, object: AnyObject) -> NSError {
-    return NSError(domain: "Parse", code: 2, userInfo: [NSLocalizedDescriptionKey:"Object for key '\(key)' is not of type [String:AnyObject]: '\(object)"])
+private func publishResponseIfPossible (optionalData: NSData?, optionalURLResponse: NSURLResponse?, optionalError: NSError?) -> ResponsePromise -> ResponsePromise? {
+    return { promise in
+        if let data = optionalData where optionalError == nil {
+            promise.complete § Result.success § WSResponse(data: data, optionalURLResponse: optionalURLResponse)
+            return nil
+        }
+        else {
+            return promise
+        }
+    }
 }
 
 
