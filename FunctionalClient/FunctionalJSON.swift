@@ -119,11 +119,11 @@ public func toDate (formatter: NSDateFormatter)(object: AnyObject) -> Result<NSD
 
 ///MARK: - extract from dictionary
 
-public func extractWithError (key: String)(dictionary: [String:AnyObject]) -> Result<AnyObject,NSError> {
+public func get (key: String)(dictionary: [String:AnyObject]) -> Result<AnyObject,NSError> {
     return dictionary |> extract(key, cantFindValueForKeyError)
 }
 
-public func extractWithError (key: String)(object: AnyObject) -> Result<AnyObject,NSError> {
+public func get (key: String)(object: AnyObject) -> Result<AnyObject,NSError> {
     return object |> extract(key, objectIsNotDictionaryError, cantFindValueForKeyError)
 }
 
