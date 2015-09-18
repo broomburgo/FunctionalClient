@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		380900CA1B31B13700947E60 /* Future.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900C81B31B13700947E60 /* Future.framework */; };
-		380900CB1B31B13700947E60 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900C91B31B13700947E60 /* Result.framework */; };
-		380900CD1B31B16700947E60 /* Queue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900CC1B31B16700947E60 /* Queue.framework */; };
-		380900CF1B31B17B00947E60 /* Elements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900CE1B31B17B00947E60 /* Elements.framework */; };
+		38A52ABB1BAC5B68006B7061 /* Elements.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900CE1B31B17B00947E60 /* Elements.framework */; };
+		38A52ABC1BAC5B68006B7061 /* Future.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900C81B31B13700947E60 /* Future.framework */; };
+		38A52ABD1BAC5B68006B7061 /* Queue.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900CC1B31B16700947E60 /* Queue.framework */; };
+		38A52ABE1BAC5B68006B7061 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 380900C91B31B13700947E60 /* Result.framework */; };
 		38FFA31B1B0C6B3D00DE0FCA /* FunctionalClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38FFA30F1B0C6B3D00DE0FCA /* FunctionalClient.framework */; };
 		38FFA3221B0C6B3D00DE0FCA /* FunctionalClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA3211B0C6B3D00DE0FCA /* FunctionalClientTests.swift */; };
 		38FFA32C1B0C6B6700DE0FCA /* WSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA32B1B0C6B6700DE0FCA /* WSClient.swift */; };
@@ -48,10 +48,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				380900CF1B31B17B00947E60 /* Elements.framework in Frameworks */,
-				380900CD1B31B16700947E60 /* Queue.framework in Frameworks */,
-				380900CA1B31B13700947E60 /* Future.framework in Frameworks */,
-				380900CB1B31B13700947E60 /* Result.framework in Frameworks */,
+				38A52ABB1BAC5B68006B7061 /* Elements.framework in Frameworks */,
+				38A52ABC1BAC5B68006B7061 /* Future.framework in Frameworks */,
+				38A52ABD1BAC5B68006B7061 /* Queue.framework in Frameworks */,
+				38A52ABE1BAC5B68006B7061 /* Result.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +187,8 @@
 		38FFA3061B0C6B3D00DE0FCA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Elvi;
 				TargetAttributes = {
 					38FFA30E1B0C6B3D00DE0FCA = {
@@ -285,6 +286,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -367,6 +369,7 @@
 				INFOPLIST_FILE = FunctionalClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.elvi.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -388,6 +391,7 @@
 				INFOPLIST_FILE = FunctionalClient/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.elvi.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -396,16 +400,14 @@
 		38FFA3291B0C6B3D00DE0FCA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = FunctionalClientTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.elvi.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -413,12 +415,10 @@
 		38FFA32A1B0C6B3D00DE0FCA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = FunctionalClientTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "it.elvi.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

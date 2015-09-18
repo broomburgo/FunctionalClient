@@ -38,9 +38,9 @@ public class WSClient {
         NSURLSession.sharedSession().dataTaskWithRequest(request) { data, URLResponse, error in
             Queue.main.async {
                 self.removePromise(currentIndex)
-                    >>> verifyRequestError(URLResponse, error, makeError)
-                    >>> verifyEmptyDataError(data, URLResponse, error, makeError)
-                    >>> publishResponseIfPossible(data, URLResponse, error)
+                    >>- verifyRequestError(URLResponse, error, makeError)
+                    >>- verifyEmptyDataError(data, URLResponse, error, makeError)
+                    >>- publishResponseIfPossible(data, URLResponse, error)
                 
             }
         } .resume()
@@ -61,7 +61,7 @@ public class WSClient {
 
 ///MARK: - private utility
 
-private func verifyRequestError (optionalURLResponse: NSURLResponse?, optionalError: NSError?, makeError: (NSError, NSURLResponse?) -> NSError) -> ResponsePromise -> ResponsePromise? {
+private func verifyRequestError (optionalURLResponse: NSURLResponse?, _ optionalError: NSError?, _ makeError: (NSError, NSURLResponse?) -> NSError) -> ResponsePromise -> ResponsePromise? {
     return { promise in
         if let error = optionalError {
             promise.complete § Result.failure § makeError(error, optionalURLResponse)
@@ -73,7 +73,7 @@ private func verifyRequestError (optionalURLResponse: NSURLResponse?, optionalEr
     }
 }
 
-private func verifyEmptyDataError (optionalData: NSData?, optionalURLResponse: NSURLResponse?, optionalError: NSError?, makeError: (NSError, NSURLResponse?) -> NSError) -> ResponsePromise -> ResponsePromise? {
+private func verifyEmptyDataError (optionalData: NSData?, _ optionalURLResponse: NSURLResponse?, _ optionalError: NSError?, _ makeError: (NSError, NSURLResponse?) -> NSError) -> ResponsePromise -> ResponsePromise? {
     return { promise in
         if optionalData == nil && optionalError == nil {
             promise.complete § Result.failure § makeError(emptyDataError,optionalURLResponse)
@@ -85,7 +85,7 @@ private func verifyEmptyDataError (optionalData: NSData?, optionalURLResponse: N
     }
 }
 
-private func publishResponseIfPossible (optionalData: NSData?, optionalURLResponse: NSURLResponse?, optionalError: NSError?) -> ResponsePromise -> ResponsePromise? {
+private func publishResponseIfPossible (optionalData: NSData?, _ optionalURLResponse: NSURLResponse?, _ optionalError: NSError?) -> ResponsePromise -> ResponsePromise? {
     return { promise in
         if let data = optionalData where optionalError == nil {
             promise.complete § Result.success § WSResponse(data: data, optionalURLResponse: optionalURLResponse)

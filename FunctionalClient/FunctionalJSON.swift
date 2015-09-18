@@ -21,17 +21,16 @@ public enum JSONParsingError: Int {
 }
 
 public func toJSONObject (data: NSData) -> Result<AnyObject,NSError> {
-    var inOutError: NSError? = nil
-    if let JSONObject: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments, error:&inOutError) {
-        return Result.success(JSONObject)
+    do {
+        return Result.success(try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments))
     }
-    else {
+    catch let error as NSError {
         let errorString = NSString(data: data, encoding: NSUTF8StringEncoding) as? String
-            >>> { dataString in inOutError?.userInfo?[NSLocalizedDescriptionKey] as? String
-                >>> { errorDescription in errorDescription + " " + dataString }
+            >>- { dataString in error.userInfo[NSLocalizedDescriptionKey] as? String
+                >>- { errorDescription in errorDescription + " " + dataString }
                 |> defaultTo(dataString) }
             |> defaultTo("")
-        let userInfo = errorString.isEmpty ? inOutError?.userInfo : [NSLocalizedDescriptionKey:errorString]
+        let userInfo = errorString.isEmpty ? error.userInfo : [NSLocalizedDescriptionKey:errorString]
         return Result.failure § NSError(domain: JSONParsingDomain, code: codeOfError(.ToJSONObject), userInfo: userInfo)
     }
 }
@@ -133,19 +132,19 @@ private func codeOfError (error: JSONParsingError) -> Int {
     return error.rawValue
 }
 
-private func parsingError(error: JSONParsingError, object: AnyObject) -> NSError {
+private func parsingError(error: JSONParsingError, _ object: AnyObject) -> NSError {
     return NSError(domain: JSONParsingDomain, code: codeOfError(error), userInfo: [NSLocalizedDescriptionKey : "Error '\(error)': can't parse object '\(object)'", objectKey : object])
 }
 
-private func dateParsingError(format: String, object: AnyObject) -> NSError {
+private func dateParsingError(format: String, _ object: AnyObject) -> NSError {
     return NSError(domain: JSONParsingDomain, code: codeOfError(.ToDate), userInfo: [NSLocalizedDescriptionKey : "Error '\(JSONParsingError.ToDate)': can't parse object '\(object)' with format '\(format)'", objectKey : object])
 }
 
-private func cantFindValueForKeyError (key: String, dictionary: [String:AnyObject]) -> NSError {
+private func cantFindValueForKeyError (key: String, _ dictionary: [String:AnyObject]) -> NSError {
     return NSError(domain: DictionaryExtractDomain, code: 1, userInfo: [NSLocalizedDescriptionKey:"Can't find value for key '\(key)' in dictionary '\(dictionary)'"])
 }
 
-private func objectIsNotDictionaryError (key: String, object: AnyObject) -> NSError {
+private func objectIsNotDictionaryError (key: String, _ object: AnyObject) -> NSError {
     return NSError(domain: DictionaryExtractDomain, code: 2, userInfo: [NSLocalizedDescriptionKey:"Object for key '\(key)' is not of type [String:AnyObject]: '\(object)"])
 }
 
