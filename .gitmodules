@@ -1,0 +1,9 @@
+[submodule "Submodules/Swiftz"]
+	path = Submodules/Swiftz
+	url = https://github.com/typelift/Swiftz.git
+[submodule "Submodules/Future"]
+	path = Submodules/Future
+	url = https://github.com/broomburgo/Future.git
+[submodule "Submodules/Queue"]
+	path = Submodules/Queue
+	url = https://github.com/broomburgo/Queue.git
