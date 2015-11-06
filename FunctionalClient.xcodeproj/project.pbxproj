@@ -16,7 +16,7 @@
 		38FFA31B1B0C6B3D00DE0FCA /* FunctionalClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38FFA30F1B0C6B3D00DE0FCA /* FunctionalClient.framework */; };
 		38FFA3221B0C6B3D00DE0FCA /* FunctionalClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA3211B0C6B3D00DE0FCA /* FunctionalClientTests.swift */; };
 		38FFA32C1B0C6B6700DE0FCA /* WSClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA32B1B0C6B6700DE0FCA /* WSClient.swift */; };
-		38FFA3311B0C6C6200DE0FCA /* WSValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA3301B0C6C6200DE0FCA /* WSValue.swift */; };
+		38FFA3311B0C6C6200DE0FCA /* WSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA3301B0C6C6200DE0FCA /* WSData.swift */; };
 		38FFA3331B0C6D6600DE0FCA /* FunctionalJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FFA3321B0C6D6600DE0FCA /* FunctionalJSON.swift */; };
 /* End PBXBuildFile section */
 
@@ -132,7 +132,7 @@
 		38FFA3201B0C6B3D00DE0FCA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		38FFA3211B0C6B3D00DE0FCA /* FunctionalClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionalClientTests.swift; sourceTree = "<group>"; };
 		38FFA32B1B0C6B6700DE0FCA /* WSClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSClient.swift; sourceTree = "<group>"; };
-		38FFA3301B0C6C6200DE0FCA /* WSValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSValue.swift; sourceTree = "<group>"; };
+		38FFA3301B0C6C6200DE0FCA /* WSData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSData.swift; sourceTree = "<group>"; };
 		38FFA3321B0C6D6600DE0FCA /* FunctionalJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionalJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -210,7 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				38FFA32B1B0C6B6700DE0FCA /* WSClient.swift */,
-				38FFA3301B0C6C6200DE0FCA /* WSValue.swift */,
+				38FFA3301B0C6C6200DE0FCA /* WSData.swift */,
 				38FFA3321B0C6D6600DE0FCA /* FunctionalJSON.swift */,
 				38FFA3121B0C6B3D00DE0FCA /* Supporting Files */,
 			);
@@ -438,7 +438,7 @@
 			files = (
 				38FFA32C1B0C6B6700DE0FCA /* WSClient.swift in Sources */,
 				38FFA3331B0C6D6600DE0FCA /* FunctionalJSON.swift in Sources */,
-				38FFA3311B0C6C6200DE0FCA /* WSValue.swift in Sources */,
+				38FFA3311B0C6C6200DE0FCA /* WSData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

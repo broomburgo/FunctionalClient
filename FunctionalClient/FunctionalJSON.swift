@@ -20,23 +20,27 @@ public enum JSONParsingError: Int
   case ToDate
 }
 
-public func toJSONObject (data: NSData) -> Either<NSError,AnyObject>
+public extension NSData
 {
-  do
+  public func toJSONObject () -> Either<NSError,AnyObject>
   {
-    return Either.Right(try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.AllowFragments))
-  }
-  catch let error as NSError
-  {
-    let errorString = (NSString(data: data, encoding: NSUTF8StringEncoding) as? String
-      >>- { dataString in (error.userInfo[NSLocalizedDescriptionKey] as? String
-        >>- { errorDescription in errorDescription + " " + dataString })
-        .getOrElse(dataString) })
-      .getOrElse("")
-    let userInfo = errorString.isEmpty ? error.userInfo : [NSLocalizedDescriptionKey:errorString]
-    return Either.Left § NSError(domain: JSONParsingDomain, code: codeOfError(.ToJSONObject), userInfo: userInfo)
+    do
+    {
+      return Either.Right(try NSJSONSerialization.JSONObjectWithData(self, options: NSJSONReadingOptions.AllowFragments))
+    }
+    catch let error as NSError
+    {
+      let errorString = (NSString(data: self, encoding: NSUTF8StringEncoding) as? String
+        >>- { dataString in (error.userInfo[NSLocalizedDescriptionKey] as? String
+          >>- { errorDescription in errorDescription + " " + dataString })
+          .getOrElse(dataString) })
+        .getOrElse("")
+      let userInfo = errorString.isEmpty ? error.userInfo : [NSLocalizedDescriptionKey:errorString]
+      return Either.Left § NSError(domain: JSONParsingDomain, code: codeOfError(.ToJSONObject), userInfo: userInfo)
+    }
   }
 }
+
 
 public func toInt (object: AnyObject) -> Either<NSError,Int>
 {
